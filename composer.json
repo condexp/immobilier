@@ -13,6 +13,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.9",
         "fzaninotto/faker": "^1.9",
+        "knplabs/knp-time-bundle": "^1.16",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "5.3.*",
@@ -41,7 +42,10 @@
         "symfony/validator": "5.3.*",
         "symfony/web-link": "5.3.*",
         "symfony/yaml": "5.3.*",
+        "symfonycasts/reset-password-bundle": "^1.9",
+        "symfonycasts/verify-email-bundle": "^1.5",
         "twig/extra-bundle": "^2.12|^3.0",
+        "twig/string-extra": "^3.3",
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
@@ -83,6 +87,12 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
+        "prepareDB": [
+            "php bin/console doctrine:database:drop --if-exists --force",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:schema:update --force",
+            "php bin/console doctrine:fixtures:load -n"
+        ],
         "post-install-cmd": [
             "@auto-scripts"
         ],
