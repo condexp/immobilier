@@ -59,7 +59,7 @@ class BiensController extends AbstractController
 
                 // On stocke l'image dans la base de données (son nom)
                 $img = new Images();
-                $img->setNom($fichier);
+                $img->setName($fichier);
                 $bien->addImage($img);
 
                 // On recupere l'id de l'user connecter et on insere son id 
@@ -117,7 +117,7 @@ class BiensController extends AbstractController
 
                 // On stocke l'image dans la base de données (son nom)
                 $img = new Images();
-                $img->setNom($fichier);
+                $img->setName($fichier);
                 $bien->addImage($img);
             }
 
@@ -157,9 +157,9 @@ class BiensController extends AbstractController
         // On vérifie si le token est valide
         if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])) {
             // On récupère le nom de l'image
-            $nom = $image->getNom();
+            $name = $image->getName();
             // On supprime le fichier
-            unlink($this->getParameter('images_directory') . '/' . $nom);
+            unlink($this->getParameter('images_directory') . '/' . $name);
 
             // On supprime l'entrée de la base
             $em = $this->getDoctrine()->getManager();

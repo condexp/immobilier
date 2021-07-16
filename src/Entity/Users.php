@@ -49,6 +49,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $biens;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $testmail = 0;
+
     public function __construct()
     {
         $this->biens = new ArrayCollection();
@@ -181,6 +186,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
                 $bien->setUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTestmail(): ?int
+    {
+        return $this->testmail;
+    }
+
+    public function setTestmail(?int $testmail): self
+    {
+        $this->testmail = $testmail;
 
         return $this;
     }

@@ -49,7 +49,7 @@ class EmailVerifier
         $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
 
         $user->setIsVerified(true);
-
+        $user->setTestmail(1);
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }

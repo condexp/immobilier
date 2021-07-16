@@ -6,7 +6,7 @@
 	<h2>Images</h2>
 	{% for image in bien.images %}
 		<div>
-			<img src="{{ asset('/uploads/' ~ image.nom) }}" alt="Image" width="150">
+			<img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
 			<a href="{{ path('biens_delete_image', {id: image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
 		</div>
 	{% endfor %}
