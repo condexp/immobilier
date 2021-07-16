@@ -2,15 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\BiensRepository;
+use App\Repository\PropertyRepository;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=BiensRepository::class)
+ * @ORM\Entity(repositoryClass=PropertyRepository::class)
  */
-class Biens
+class Property
 {
     /**
      * @ORM\Id
@@ -30,15 +31,20 @@ class Biens
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="biens", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="property", orphanRemoval=true, cascade={"persist"})
      */
     private $images;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="biens")
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="property")
      * @ORM\JoinColumn(nullable=false)
      */
     private $users;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -86,7 +92,7 @@ class Biens
     {
         if (!$this->images->contains($image)) {
             $this->images[] = $image;
-            $image->setBiens($this);
+            $image->setProperty($this);
         }
 
         return $this;
@@ -96,8 +102,8 @@ class Biens
     {
         if ($this->images->removeElement($image)) {
             // set the owning side to null (unless already changed)
-            if ($image->getBiens() === $this) {
-                $image->setBiens(null);
+            if ($image->getProperty() === $this) {
+                $image->setProperty(null);
             }
         }
 
@@ -112,6 +118,18 @@ class Biens
     public function setUsers(?Users $users): self
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\ImagesRepository;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,10 +23,10 @@ class Images
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Biens::class, inversedBy="images")
+     * @ORM\ManyToOne(targetEntity=Property::class, inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $biens;
+    private $property;
 
     public function getId(): ?int
     {
@@ -45,14 +45,14 @@ class Images
         return $this;
     }
 
-    public function getBiens(): ?Biens
+    public function getProperty(): ?Property
     {
-        return $this->biens;
+        return $this->property;
     }
 
-    public function setBiens(?Biens $biens): self
+    public function setProperty(?Property $property): self
     {
-        $this->biens = $biens;
+        $this->property = $property;
 
         return $this;
     }

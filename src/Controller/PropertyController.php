@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Biens;
+use App\Entity\Property;
 use App\Entity\Images;
 use App\Entity\Users;
-use App\Form\BiensType;
-use App\Repository\BiensRepository;
+use App\Form\PropertyType;
+use App\Repository\PropertyRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,14 +14,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/biens")
+ * @Route("/property")
  */
-class BiensController extends AbstractController
+class PropertyController extends AbstractController
 {
     /**
-     * @Route("/", name="biens_index", methods={"GET"})
+     * @Route("/", name="property_index", methods={"GET"})
      */
-    public function index(BiensRepository $biensRepository): Response
+    public function index(PropertyRepository $biensRepository): Response
     {
         return $this->render('biens/index.html.twig', [
             'biens' => $biensRepository->findAll(),
@@ -29,14 +29,14 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="biens_new", methods={"GET","POST"})
+     * @Route("/new", name="property_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
 
-        $bien = new Biens();
+        $bien = new Property();
         //$myuser = new Users;
-        $form = $this->createForm(BiensType::class, $bien);
+        $form = $this->createForm(PropertyType::class, $bien);
         $form->handleRequest($request);
 
 
@@ -71,7 +71,7 @@ class BiensController extends AbstractController
             $entityManager->persist($bien);
             $entityManager->flush();
 
-            return $this->redirectToRoute('biens_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('property_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('biens/new.html.twig', [
@@ -81,9 +81,9 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="biens_show", methods={"GET"})
+     * @Route("/{id}", name="property_show", methods={"GET"})
      */
-    public function show(Biens $bien): Response
+    public function show(Property $bien): Response
     {
         return $this->render('biens/show.html.twig', [
             'bien' => $bien,
@@ -91,11 +91,11 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="biens_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="property_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Biens $bien): Response
+    public function edit(Request $request, Property $bien): Response
     {
-        $form = $this->createForm(BiensType::class, $bien);
+        $form = $this->createForm(PropertyType::class, $bien);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -124,7 +124,7 @@ class BiensController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('biens_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('property_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('biens/edit.html.twig', [
@@ -134,9 +134,9 @@ class BiensController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="biens_delete", methods={"POST"})
+     * @Route("/{id}", name="property_delete", methods={"POST"})
      */
-    public function delete(Request $request, Biens $bien): Response
+    public function delete(Request $request, Property $bien): Response
     {
         if ($this->isCsrfTokenValid('delete' . $bien->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -144,11 +144,11 @@ class BiensController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('biens_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('property_index', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
-     * @Route("/supprime/image/{id}", name="biens_delete_image", methods={"DELETE"})
+     * @Route("/delete/image/{id}", name="property_delete_image", methods={"DELETE"})
      */
     public function deleteImage(Images $image, Request $request)
     {

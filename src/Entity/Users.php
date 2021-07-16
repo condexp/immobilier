@@ -45,9 +45,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=Biens::class, mappedBy="users", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Property::class, mappedBy="users", orphanRemoval=true)
      */
-    private $biens;
+    private $property;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -56,7 +56,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->biens = new ArrayCollection();
+        $this->property = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,29 +161,29 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Biens[]
+     * @return Collection|Property[]
      */
-    public function getBiens(): Collection
+    public function getProperty(): Collection
     {
-        return $this->biens;
+        return $this->property;
     }
 
-    public function addBien(Biens $bien): self
+    public function addProperty(Property $property): self
     {
-        if (!$this->biens->contains($bien)) {
-            $this->biens[] = $bien;
-            $bien->setUsers($this);
+        if (!$this->property->contains($property)) {
+            $this->property[] = $property;
+            $property->setUsers($this);
         }
 
         return $this;
     }
 
-    public function removeBien(Biens $bien): self
+    public function removeProperty(Property $property): self
     {
-        if ($this->biens->removeElement($bien)) {
+        if ($this->property->removeElement($property)) {
             // set the owning side to null (unless already changed)
-            if ($bien->getUsers() === $this) {
-                $bien->setUsers(null);
+            if ($property->getUsers() === $this) {
+                $property->setUsers(null);
             }
         }
 

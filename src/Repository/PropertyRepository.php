@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Biens;
+use App\Entity\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Biens|null find($id, $lockMode = null, $lockVersion = null)
- * @method Biens|null findOneBy(array $criteria, array $orderBy = null)
- * @method Biens[]    findAll()
- * @method Biens[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Property|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Property|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Property[]    findAll()
+ * @method Property[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BiensRepository extends ServiceEntityRepository
+class PropertyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Biens::class);
+        parent::__construct($registry, Property::class);
     }
 
     // /**
-    //  * @return Biens[] Returns an array of Biens objects
+    //  * @return Property[] Returns an array of Property objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class BiensRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Biens
+    public function findOneBySomeField($value): ?Property
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.exampleField = :val')
