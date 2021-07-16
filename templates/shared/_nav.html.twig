@@ -10,16 +10,7 @@
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="{{ path('home_annonce') }}">Home</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('biens_index') }}">Gestion des biens
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_register') }}">Enregistrement</a>
-				</li>
+
 				<li class="nav-item">
 					<a class="nav-link" href="#!">About</a>
 				</li>
@@ -39,13 +30,39 @@
 					</ul>
 				</li>
 			</ul>
-			<form class="d-flex">
-				<button class="btn btn-outline-dark" type="submit">
-					<i class="bi-cart-fill me-1"></i>
-					Cart
-					<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-				</button>
-			</form>
+			<div class="float-right">
+				<ul class="navbar-nav me-auto mb-1 mb-lg-0 ms-lg-1">
+
+
+					{% if not app.user %}
+
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_register') }}">Enregistrement</a>
+						</li>
+					{% else %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_logout') }}">Deconnexion</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('biens_index') }}">Gestion des biens
+							</a>
+						</li>
+
+						<form class="d-flex">
+							<button class="btn btn-outline-dark" type="submit">
+
+								Mes favoris
+								<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+							</button>
+						</form>
+					{% endif %}
+				</ul>
+			</div>
 		</div>
 	</div>
 </nav>

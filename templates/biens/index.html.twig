@@ -4,6 +4,9 @@
 {% endblock %}
 
 {% block body %}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success" role="alert">{{ message }}</div>
+	{% endfor %}
 	<h1>Annonces immobilieres : Toute la France</h1>
 
 

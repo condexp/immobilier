@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Biens;
 use App\Entity\Images;
+use App\Entity\Users;
 use App\Form\BiensType;
 use App\Repository\BiensRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,9 +33,12 @@ class BiensController extends AbstractController
      */
     public function new(Request $request): Response
     {
+
         $bien = new Biens();
+        //$myuser = new Users;
         $form = $this->createForm(BiensType::class, $bien);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -45,6 +49,7 @@ class BiensController extends AbstractController
             foreach ($images as $image) {
                 // On génère un nouveau nom de fichier
                 $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+                // dd($image);
 
                 // On copie le fichier dans le dossier uploads
                 $image->move(
@@ -56,10 +61,11 @@ class BiensController extends AbstractController
                 $img = new Images();
                 $img->setNom($fichier);
                 $bien->addImage($img);
+
+                // On recupere l'id de l'user connecter et on insere son id 
+                // en base de donnée sur la table des biens.
+                $bien->setUsers($this->getUser());
             }
-
-
-
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($bien);

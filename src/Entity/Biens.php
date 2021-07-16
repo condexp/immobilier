@@ -34,6 +34,12 @@ class Biens
      */
     private $images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="biens")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $users;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -94,6 +100,18 @@ class Biens
                 $image->setBiens(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
 
         return $this;
     }
